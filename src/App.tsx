@@ -16,8 +16,9 @@ function App() {
 
 
 const getCollectionData = async () => {
-  const arr = []
+  
     try {
+      const arr:string[] = []
       const querySnapshot = await getDocs(collection(db, "feedbacks"));
       querySnapshot.forEach((doc) => {
 
