@@ -1,51 +1,17 @@
 import './App.css'
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import {fireDB} from './firebase'
-import { useState,useEffect} from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Home from './views/Home'
 
 function App() {
-
-  const [comment, setComment] = useState<string[]>([]);
-
-  const fire = fireDB
-
-  useEffect(()=>{
-    getCollectionData();
-  },[])
-  const db = getFirestore(fire);
-
-
-const getCollectionData = async () => {
-  
-    try {
-      const arr:string[] = []
-      const querySnapshot = await getDocs(collection(db, "feedbacks"));
-      querySnapshot.forEach((doc) => {
-
-       
-        //obtener los comentarios de la bse de datos
-        // console.log(doc.data().comment)
-        arr.push(doc.data().comment)
-        setComment(arr)
-        //Obteniendo la data de la base de datos 
-        // console.log(doc.data());
-      });
-    } catch (error) {
-      console.error("Error al obtener los datos de la colección:", error);
-    }
-  };
-  
-  // Llamar a la función para obtener los datos de la colección
-
-
   
   return (
     <>
-      <h3>{comment?.map(c=>(
-        <div key={c}>
-          <p>{c}</p>
-        </div>
-      ))}</h3>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/data_feedback' element={<Home/>} />
+        <Route path='*' element={<Home/>}/>
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }
