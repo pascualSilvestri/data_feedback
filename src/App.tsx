@@ -1,33 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {fireDB} from './firebase'
+import { useState,useEffect} from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const [comment, setComment] = useState<string[]>([]);
+
+  const fire = fireDB
+
+  useEffect(()=>{
+    getCollectionData();
+  },[])
+  const db = getFirestore(fire);
+
+
+const getCollectionData = async () => {
+  const arr = []
+    try {
+      const querySnapshot = await getDocs(collection(db, "feedbacks"));
+      querySnapshot.forEach((doc) => {
+
+       
+        //obtener los comentarios de la bse de datos
+        // console.log(doc.data().comment)
+        arr.push(doc.data().comment)
+        setComment(arr)
+        //Obteniendo la data de la base de datos 
+        // console.log(doc.data());
+      });
+    } catch (error) {
+      console.error("Error al obtener los datos de la colección:", error);
+    }
+  };
+  
+  // Llamar a la función para obtener los datos de la colección
+
+
+  
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h3>{comment?.map(c=>(
+        <div key={c}>
+          <p>{c}</p>
+        </div>
+      ))}</h3>
     </>
   )
 }
