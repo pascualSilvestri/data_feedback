@@ -1,7 +1,7 @@
 {
   "name": "data-feedback",
   "private": true,
-  "homepage": "http://pascualsilvestri.github.io/data_feedback/",
+  "homepage": "http://pascualSilvestri.github.io/data_feedback/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
