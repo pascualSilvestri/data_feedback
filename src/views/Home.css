@@ -1,0 +1,25 @@
+.home_contenedor{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.comentario_contendor{
+    width: 300px;
+    padding: .5rem 1rem;
+    background-color: #e3e3e3;
+    margin: 1rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+
+.comentario_contendor p{
+    width: 100%;
+    padding: .5rem 1rem;
+    background-color: #e3e3e3;
+    text-align: justify;
+    color: #222;
+}

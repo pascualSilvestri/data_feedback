@@ -1,11 +1,10 @@
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { fireDB } from '../firebase'
 import { useState, useEffect } from 'react';
-
+import './Home.css'
 
 
 export default function Home() {
-
 
     const [comment, setComment] = useState<string[]>([]);
 
@@ -39,11 +38,13 @@ export default function Home() {
 
     return (
         <>
-            <h3>{comment?.map(c => (
-                <div key={c}>
-                    <p>{c}</p>
-                </div>
-            ))}</h3>
+            <div className="home_contenedor">
+                {comment?.map(c => (
+                    <div className="comentario_contendor" key={c}>
+                        <p>{c}</p>
+                    </div>
+                ))}
+            </div>
         </>
     )
 }
