@@ -1,6 +1,7 @@
 {
   "name": "data-feedback",
   "private": true,
+  "homepage": "http://pascualSilvestri.github.io/data_feedback",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -10,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
