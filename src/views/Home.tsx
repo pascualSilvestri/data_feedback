@@ -6,28 +6,44 @@ import './Home.css'
 
 export default function Home() {
 
-    const [comment, setComment] = useState<string[]>([]);
+    const [feedback, setFeedback] = useState<unknown[]>([]);
 
     const fire = fireDB
 
     useEffect(() => {
         getCollectionData();
     }, [])
+
     const db = getFirestore(fire);
 
+    function formatearChatId(arg) {
+        const indiceDelGuion = arg.indexOf('-') + 1;
+      
+        const fechaFormateada = arg.slice(indiceDelGuion, indiceDelGuion + 10);
+      
+        return fechaFormateada;
+      }
+      
 
     const getCollectionData = async () => {
 
         try {
-            const arr: string[] = []
+            const arr1:unknown[] =[]
             const querySnapshot = await getDocs(collection(db, "feedbacks"));
             querySnapshot.forEach((doc) => {
 
+                    const arr = {
+                        comment: doc.data().comment,
+                        chatId: formatearChatId(doc.data().chatId),
+                        rating: doc.data().rating
+                    };
 
-                //obtener los comentarios de la bse de datos
-                // console.log(doc.data().comment)
-                arr.push(doc.data().comment)
-                setComment(arr)
+                arr1.push(arr)
+                arr1.sort((a,b)=>{
+                    return b.rating - a.rating
+                })
+
+                setFeedback(arr1)
                 //Obteniendo la data de la base de datos 
                 // console.log(doc.data());
             });
@@ -39,9 +55,11 @@ export default function Home() {
     return (
         <>
             <div className="home_contenedor">
-                {comment?.map(c => (
-                    <div className="comentario_contendor" key={c}>
-                        <p>{c}</p>
+                {feedback?.map(c => (
+                    <div className="comentario_contendor" key={c.comment}>
+                        <h2>{c.chatId}</h2>
+                        <p>{c.comment}</p>
+                        <span><b>Rating:</b>{c.rating}/5</span>
                     </div>
                 ))}
             </div>
