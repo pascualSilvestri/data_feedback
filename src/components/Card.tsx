@@ -15,7 +15,7 @@ export default function Card({id,comment,chatId,rating}) {
 
     return (
         <div className="card">
-            <div className={visto? "comentario_contendor" :'comentario_contendor_check'} key={comment} id={id} onClick={cardVista}>
+            <div className="comentario_contendor"  key={comment} id={id} onClick={cardVista}>
                 <h2>{chatId}</h2>
                 <p>{comment}</p>
                 <span>
@@ -26,3 +26,5 @@ export default function Card({id,comment,chatId,rating}) {
         </div>
     )
 }
+
+// {visto? "comentario_contendor" :'comentario_contendor_check'}
