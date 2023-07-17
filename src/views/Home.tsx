@@ -2,17 +2,27 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { fireDB } from '../firebase';
 import { useState, useEffect } from 'react';
 import './Home.css';
+import { v4 as uuidv4 } from 'uuid';
+import Card from "../components/Card";
 
 export default function Home() {
   const [feedback, setFeedback] = useState<Array<Feedback>>([]);
+  
 
   const fire = fireDB;
+  const db = getFirestore(fire);
+
+  interface Feedback {
+    comment: string;
+    chatId: string;
+    rating: number;
+  }
 
   useEffect(() => {
     getCollectionData();
   }, []);
 
-  const db = getFirestore(fire);
+ 
 
   function formatearChatId(arg: string): string {
     const indiceDelGuion = arg.indexOf('-') + 1;
@@ -20,11 +30,7 @@ export default function Home() {
     return fechaFormateada;
   }
 
-  interface Feedback {
-    comment: string;
-    chatId: string;
-    rating: number;
-  }
+  
 
   const getCollectionData = async () => {
     try {
@@ -53,15 +59,15 @@ export default function Home() {
   return (
     <>
       <div className="home_contenedor">
-        {feedback?.map((c) => (
-          <div className="comentario_contendor" key={c.comment}>
-            <h2>{c.chatId}</h2>
-            <p>{c.comment}</p>
-            <span>
-              <b>Rating:</b>
-              {c.rating}/5
-            </span>
-          </div>
+        {
+        feedback?.map((c) => (
+          <Card 
+          comment={c.comment}
+          chatId={c.chatId}
+          rating={c.rating}
+          id={uuidv4()}
+          key={uuidv4()}
+          />
         ))}
       </div>
     </>
