@@ -36,13 +36,14 @@ export default function Home() {
     try {
       const arr1: Feedback[] = [];
       const querySnapshot = await getDocs(collection(db, "feedbacks"));
+      console.log(querySnapshot.docs)
       querySnapshot.forEach((doc) => {
         const arr: Feedback = {
           comment: doc.data().comment,
           chatId: formatearChatId(doc.data().chatId),
           rating: doc.data().rating
         };
-
+        
         arr1.push(arr);
       });
 
